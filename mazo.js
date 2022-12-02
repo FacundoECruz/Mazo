@@ -1,3 +1,6 @@
+const armar = document.getElementById('armar') 
+const jugar = document.getElementById('jugar')
+
 const randomNum = (min, max) => {
     min = Math.ceil(min);
     max = Math.floor(max);
@@ -19,6 +22,7 @@ let mazoTruco = mazoCompleto.filter(carta => carta.numero != 8 && carta.numero !
 //Partida de altisima
 let jugadores = 4
 let cartasPorRonda = [];
+let roundCounter = 0;
 
 const armarRondas = (jug) => {
     for (let i = 0; i < 9; i++) {
@@ -56,8 +60,6 @@ const juego = () => {
     roundCounter += 1;
 }
 
+armar.addEventListener('click', armarRondas(jugadores));
+jugar.addEventListener('click', juego);
 
-armarRondas(jugadores);
-let roundCounter = 0;
-juego();
-console.log(roundCounter);
