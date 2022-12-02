@@ -41,12 +41,18 @@ const repartir = (qty) => {
     }
 }
 
-const rondas = () => {
+const rondas = (cards) => {
     for (let i = 0; i < jugadores; i++) {
-        repartir(cartasPorRonda[0]);
+        repartir(cartasPorRonda[cards]);
+        console.log('****************');
     }
 }
 
+const juego = () => {
+    for (let j = 0; j < 2; j++) {
+        rondas(j);
+    }
+}
 
 armarRondas(jugadores);
-rondas();
+juego();
