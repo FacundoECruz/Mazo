@@ -31,29 +31,22 @@ const armarRondas = (jug) => {
 const repartir = (qty) => {
     for (let i = 0; i < qty; i++) {
         let indice = randomNum(0, 40)
-        console.log(`Indice: ${indice},`,`cartasPorRonda: ${qty}.`)
         let carta = mazoTruco[indice];
         if (carta !== undefined) {
             mazoTruco.splice(indice, 1);
-            console.log(`i: ${i},`, `Carta: ${carta.numero} de ${carta.palo},`, `MazoLength: ${mazoTruco.length}.`);
+            console.log(`${i},`, `${carta.numero} de ${carta.palo},`, `ml: ${mazoTruco.length}.`);
         } else {
-        console.log('Salio undefined')
-        i = i - 1;  
-    }
+            i = i - 1;
+        }
     }
 }
 
+const rondas = () => {
+    for (let i = 0; i < jugadores; i++) {
+        repartir(cartasPorRonda[0]);
+    }
+}
+
+
 armarRondas(jugadores);
-repartir(cartasPorRonda[0]);
-
-// const rondas = () => {
-//     for (let i = 0; i < cartasPorRonda.length; i++) {
-//         for (let j = 0; j < jugadores; j++) {
-//             repartir();
-//         }
-//     }
-// }
-
-// armarRondas(jugadores);
-// rondas();
-
+rondas();
