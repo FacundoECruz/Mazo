@@ -28,6 +28,7 @@ const armarRondas = (jug) => {
     console.log(cartasPorRonda);
 }
 
+//Repartir cartas a cada jugador
 const repartir = (qty) => {
     for (let i = 0; i < qty; i++) {
         let indice = randomNum(0, 40)
@@ -41,18 +42,22 @@ const repartir = (qty) => {
     }
 }
 
-const rondas = (cards) => {
+//Cada ronda
+const rondas = (round) => {
     for (let i = 0; i < jugadores; i++) {
-        repartir(cartasPorRonda[cards]);
+        repartir(cartasPorRonda[round]);
         console.log('****************');
     }
 }
 
 const juego = () => {
-    for (let j = 0; j < 2; j++) {
-        rondas(j);
-    }
+    console.log(`RONDA ${roundCounter + 1}`)
+    rondas(roundCounter);
+    roundCounter += 1;
 }
 
+
 armarRondas(jugadores);
+let roundCounter = 0;
 juego();
+console.log(roundCounter);
