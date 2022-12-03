@@ -10,8 +10,9 @@ const randomNum = (min, max) => {
 const mazoCompleto = [];
 const palos = ['Espada', 'Basto', 'Oro', 'Copa']
 
+//ARRAY CON NUMEROS VALIDOS
 //Generar mazo completo
-for (let i = 0; i < 4; i++) {
+for (let i = 0; i < palos.length; i++) {
     for (let j = 0; j < 12; j++) {
         mazoCompleto.push({ numero: j + 1, palo: `${palos[i]}` })
     }
@@ -23,23 +24,27 @@ let mazoTruco = mazoCompleto.filter(carta => carta.numero != 8 && carta.numero !
 let jugadores = 4
 let cartasPorRonda = [];
 let roundCounter = 0;
+const rondasDefault = 9;
+const maxCardsInDeck = 40;
 
 const armarRondas = (jug) => {
-    for (let i = 0; i < 9; i++) {
-        let maxCart = (40 / jug) + 1
-        cartasPorRonda[i] = randomNum(3, maxCart)
+    for (let i = 0; i < rondasDefault; i++) {
+        let maxCardsByRound = (maxCardsInDeck / jug) 
+        const minCardsByRound = 3;
+        cartasPorRonda[i] = randomNum(minCardsByRound, maxCardsByRound + 1)
     }
     console.log(cartasPorRonda);
 }
 
 //Repartir cartas a cada jugador
 const repartir = (qty) => {
+    let mazoTrucoCopia = [].concat(mazoTruco)
     for (let i = 0; i < qty; i++) {
         let indice = randomNum(0, 40)
-        let carta = mazoTruco[indice];
+        let carta = mazoTrucoCopia[indice];
         if (carta !== undefined) {
-            mazoTruco.splice(indice, 1);
-            console.log(`${i},`, `${carta.numero} de ${carta.palo},`, `ml: ${mazoTruco.length}.`);
+            mazoTrucoCopia.splice(indice, 1);
+            console.log(`${i},`, `${carta.numero} de ${carta.palo},`, `ml: ${mazoTrucoCopia.length}.`);
         } else {
             i = i - 1;
         }
@@ -63,3 +68,5 @@ const juego = () => {
 armar.addEventListener('click', armarRondas(jugadores));
 jugar.addEventListener('click', juego);
 
+//***************************** */
+//******REINICIAR MAZO EN CADA RONDA */
