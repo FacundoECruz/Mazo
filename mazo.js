@@ -37,9 +37,9 @@ const armarRondas = (jug) => {
 }
 
 //Repartir cartas a cada jugador
-const repartir = (qty) => {
-    let mazoTrucoCopia = [].concat(mazoTruco)
-    for (let i = 0; i < qty; i++) {
+const repartir = (cardsInRound, mazoTrucoCopia) => {
+
+    for (let i = 0; i < cardsInRound; i++) {
         let indice = randomNum(0, 40)
         let carta = mazoTrucoCopia[indice];
         if (carta !== undefined) {
@@ -53,8 +53,9 @@ const repartir = (qty) => {
 
 //Cada ronda
 const rondas = (round) => {
+    let mazoTrucoCopia = [].concat(mazoTruco)
     for (let i = 0; i < jugadores; i++) {
-        repartir(cartasPorRonda[round]);
+        repartir(cartasPorRonda[round], mazoTrucoCopia);
         console.log('****************');
     }
 }
