@@ -7,49 +7,49 @@ const randomNum = (min, max) => {
   return Math.floor(Math.random() * (max - min) + min);
 };
 
-const completeDeck = [];
-const symbols = ["Espada", "Basto", "Oro", "Copa"];
-const validNums = [1, 2, 3, 4, 5, 6, 7, 10, 11, 12];
-
-//Generar mazo completo
-
-for (let i = 0; i < symbol.length; i++) {
-  for (let j = 0; j < 12; j++) {
-    completeDeck.push({ number: j + 1, symbol: `${symbol[i]}` });
+const generateTrucoDeck = () => {
+  const symbols = ["Espada", "Basto", "Oro", "Copa"];
+  const validNums = [1, 2, 3, 4, 5, 6, 7, 10, 11, 12];
+  let fullDeck = [];
+  
+  for (let i = 0; i < symbols.length; i++) {
+    for (let j = 0; j < validNums.length; j++) {
+      fullDeck.push({ number: validNums[j], symbol: `${symbols[i]}` });
+    }
   }
+  return fullDeck;
 }
 
-let trucoDeck = completeDeck.filter(
-  (card) => card.number != 8 && card.number != 9
-);
+let trucoDeck = generateTrucoDeck();
 
 //Partida de altisima
 let players = 4;
-let cardsPerRound = [];
 let roundCounter = 0;
 const defaultRounds = 9;
 const maxCardsInDeck = 40;
 
-const makeRounds = (players) => {
+const generateCardsPerRound = (players) => {
+  let cardsPerRound = [];
   for (let i = 0; i < defaultRounds; i++) {
     let maxCardsByRound = maxCardsInDeck / players;
     const minCardsByRound = 3;
     cardsPerRound[i] = randomNum(minCardsByRound, maxCardsByRound + 1);
   }
-  console.log(cardsPerRound);
+  return cardsPerRound;
 };
 
-//Repartir cartas a cada jugador
-const deal = (cardsInRound, mazoTrucoCopia) => {
-  for (let i = 0; i < cardsInRound; i++) {
-    let indice = randomNum(0, 40);
-    let carta = mazoTrucoCopia[indice];
-    if (carta !== undefined) {
-      mazoTrucoCopia.splice(indice, 1);
+const cardsPerRound = generateCardsPerRound(players)
+
+const deal = (cardsPerRound, trucoDeck) => {
+  for (let i = 0; i < cardsPerRound; i++) {
+    let index = randomNum(0, 40);
+    let card = trucoDeck[index];
+    if (card !== undefined) {
+      trucoDeck.splice(index, 1);
       console.log(
         `${i},`,
-        `${carta.numero} de ${carta.palo},`,
-        `ml: ${mazoTrucoCopia.length}.`
+        `${card.number} de ${card.symbol},`,
+        `ml: ${trucoDeck.length}.`
       );
     } else {
       i = i - 1;
